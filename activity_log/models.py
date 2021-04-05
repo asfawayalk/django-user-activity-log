@@ -33,9 +33,8 @@ if conf.AUTOCREATE_DB:
 
 
 class ActivityLog(models.Model):
-    user = models.ForeignKey(get_user_model(), on_delete=models.DO_NOTHING)
-    # For situation when user was deleted but still needs detect user in logs:
-    username = models.CharField(_('user'), max_length=256)
+    user = models.ForeignKey(get_user_model(), on_delete=models.PROTECT, null=True)
+    session_key = models.CharField(_('session'), null=True, max_length=32)
     request_url = models.CharField(_('url'), max_length=256)
     request_method = models.CharField(
         _('http method'), max_length=10, db_index=True)

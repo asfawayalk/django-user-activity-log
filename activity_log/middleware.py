@@ -53,15 +53,16 @@ class ActivityLogMiddleware(MiddlewareMixin):
             return
 
         if getattr(request, 'user', None) and request.user.is_authenticated:
-            user, user_id = request.user.get_username(), request.user.pk
-        elif getattr(request, 'session', None):
-            user, user_id = 'anon_{}'.format(request.session.session_key), 0
+            user = request.user
         else:
-            return
+            user = None
+
+        if getattr(request, 'session', None) is not None:
+            session_key = request.session.session_key
 
         ActivityLog.objects.create(
-            user_id=user_id,
-            username=user,
+            user=user,
+            session_key=session_key,
             request_url=request.build_absolute_uri()[:255],
             request_method=request.method,
             response_code=response.status_code,
