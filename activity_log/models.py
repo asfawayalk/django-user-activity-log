@@ -12,6 +12,8 @@ from django.db import connection
 from django.core.management import call_command
 from django.conf import settings
 from django.db.utils import ProgrammingError
+from django.contrib.auth import get_user_model
+
 
 from . import conf
 
@@ -31,12 +33,16 @@ if conf.AUTOCREATE_DB:
 
 
 class ActivityLog(models.Model):
-    user_id = models.IntegerField(_('user id '))
-    user = models.CharField(_('user'), max_length=256)
+    user = models.ForeignKey(get_user_model(), on_delete=models.DO_NOTHING)
+    # For situation when user was deleted but still needs detect user in logs:
+    username = models.CharField(_('user'), max_length=256)
     request_url = models.CharField(_('url'), max_length=256)
-    request_method = models.CharField(_('http method'), max_length=10, db_index=True)
-    response_code = models.CharField(_('response code'), max_length=3, db_index=True)
-    datetime = models.DateTimeField(_('datetime'), default=timezone.now, db_index=True)
+    request_method = models.CharField(
+        _('http method'), max_length=10, db_index=True)
+    response_code = models.CharField(
+        _('response code'), max_length=3, db_index=True)
+    datetime = models.DateTimeField(
+        _('datetime'), default=timezone.now, db_index=True)
     extra_data = models.TextField(_('extra data'), blank=True, null=True)
     ip_address = models.GenericIPAddressField(
         _('user IP'), null=True, blank=True, db_index=True)

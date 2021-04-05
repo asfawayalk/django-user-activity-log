@@ -61,7 +61,7 @@ class ActivityLogMiddleware(MiddlewareMixin):
 
         ActivityLog.objects.create(
             user_id=user_id,
-            user=user,
+            username=user,
             request_url=request.build_absolute_uri()[:255],
             request_method=request.method,
             response_code=response.status_code,
