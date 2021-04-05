@@ -7,10 +7,10 @@ with open(os.path.join(os.path.dirname(__file__), 'README.md')) as fh:
     readme = fh.read()
 
 setup(
-    name='django-user-activity-log2',
-    version='0.0.24',
-    author='sebatyler',
-    author_email='sebatyler@gmail.com',
+    name='django-activity-log',
+    version='0.0.25',
+    author='leonidpodriz',
+    author_email='leonidpodriz@gmail.com',
 
     include_package_data=True,
     packages=[
@@ -18,7 +18,7 @@ setup(
         'activity_log.migrations',
     ],
 
-    url='https://github.com/sebatyler/django-user-activity-log/',
+    url='https://github.com/leonidpodriz/django-user-activity-log/',
     license='MIT license',
     description='HTTP queries logger with flexible filters.',
     long_description=readme,
