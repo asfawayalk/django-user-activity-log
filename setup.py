@@ -8,7 +8,7 @@ with open(os.path.join(os.path.dirname(__file__), 'README.md')) as fh:
 
 setup(
     name='django-activity-log',
-    version='0.0.25',
+    version='0.0.26',
     author='leonidpodriz',
     author_email='leonidpodriz@gmail.com',
 
